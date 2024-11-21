@@ -1,8 +1,8 @@
 export const Themes = {
   primary: {
-    main: "",
-    light: "",
-    dark: ""
+    main: "#040491",
+    light: "#037f9e",
+    dark: "#02015c"
   },
   secondary: {
     main: "",
@@ -22,7 +22,11 @@ export const Themes = {
   hover: {
     primary: "",
     secondary: "",
-    delete: "",
+    delete: "#a1150b",
     close: ""
+  },
+  text: {
+    black: "#0d0d0c",
+    white: "#ffffff"
   }
 }

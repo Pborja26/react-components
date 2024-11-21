@@ -1,9 +1,5 @@
 export interface ProgressBarProps {
-  firstvalue?: number;
-  secondvalue?: number;
-  thirdvalue?: number;
-  fourthvalue?: number;
-  fifthvalue?: number;
+  values?: number | number[];
   showvalues?: boolean;
   
 }
