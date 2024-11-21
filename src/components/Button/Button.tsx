@@ -33,8 +33,51 @@ const Button = ({
     disabled,
     loading,
     iconsize,
-    hovercolor
+    hovercolor,
+    caret = "down",
+    caretinvert,
+    borderwidth
 }: ButtonProps) => {
+    const handdleCaret = (caret: string) => {
+        switch(caret) {
+            case "up":
+                return (
+                    caretinvert ? (
+                        <FontAwesomeIcon icon={faCaretDown} size={iconsize} />
+                    ) : (
+                        <FontAwesomeIcon icon={faCaretUp} size={iconsize} />
+                    )
+                )
+            
+            case "down":
+                return (
+                    caretinvert ? (
+                        <FontAwesomeIcon icon={faCaretUp} size={iconsize} />
+                    ) : (
+                        <FontAwesomeIcon icon={faCaretDown} size={iconsize} />
+                    )
+                )
+
+            case "right":
+                return (
+                    caretinvert ? (
+                        <FontAwesomeIcon icon={faCaretLeft} size={iconsize} />
+                    ) : (
+                        <FontAwesomeIcon icon={faCaretRight} size={iconsize} />
+                    )
+                )
+
+            case "left":
+                return (
+                    caretinvert ? (
+                        <FontAwesomeIcon icon={faCaretRight} size={iconsize} />
+                    ) : (
+                        <FontAwesomeIcon icon={faCaretLeft} size={iconsize} />
+                    )
+                )
+        }
+    }
+
     switch (type) {
         case "primary":
             return (
@@ -50,20 +93,21 @@ const Button = ({
                     color={color || Themes.primary.main}
                     textcolor={textcolor || "#fff"}
                     onClick={onClick}
+                    borderwidth={borderwidth}
                 >
                     {loading ? (
                         <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />
                     ) : (
-                        <>
-                            {icon && iconposition === "left" && 
-                                <FontAwesomeIcon icon={icon} size={iconsize} />
-                            }
-                            {label}
-                            {icon && iconposition === "right" &&
-                                <FontAwesomeIcon icon={icon} size={iconsize} />
-                            }
-                        </>
+                        icon && iconposition === "left" && 
+                            <FontAwesomeIcon icon={icon} size={iconsize} />
                     )}
+                    {label}
+                    {loading ? (
+                        <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />
+                    ) : (
+                        icon && iconposition === "right" &&
+                            <FontAwesomeIcon icon={icon} size={iconsize} />  
+                    )} 
                 </ButtonComponent>
             )
         case "secondary":
@@ -75,6 +119,8 @@ const Button = ({
         case "close":
             return (
                 <ButtonComponent
+                    onClick={onClick}
+                    radius={radius || 20}
                     
                 >
 
@@ -106,8 +152,10 @@ const Button = ({
             )
         case "caret":
             return (
-                <ButtonComponent>
-
+                <ButtonComponent
+                
+                >
+                    {handdleCaret(caret)}
                 </ButtonComponent>
             )
         default:
@@ -129,16 +177,16 @@ const Button = ({
                     {loading ? (
                         <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />
                     ) : (
-                        <>
-                            {icon && iconposition === "left" &&
-                                <FontAwesomeIcon icon={icon} size={iconsize} />
-                            }
-                            {label}
-                            {icon && iconposition === "right" && 
-                                <FontAwesomeIcon icon={icon} size={iconsize} />
-                            }
-                        </>
+                        icon && iconposition === "left" && 
+                            <FontAwesomeIcon icon={icon} size={iconsize} />
                     )}
+                    {label}
+                    {loading ? (
+                        <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />
+                    ) : (
+                        icon && iconposition === "right" &&
+                            <FontAwesomeIcon icon={icon} size={iconsize} />  
+                    )} 
                 </ButtonComponent>
             )
 

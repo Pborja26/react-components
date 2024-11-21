@@ -1,4 +1,5 @@
 import { IconDefinition, SizeProp } from "@fortawesome/fontawesome-svg-core";
+import { BorderTypes } from "../../utils/GlobalTypes/GlobalTypes";
 
 type ButtonType = 
   "primary"
@@ -14,23 +15,13 @@ type IconPosition = "left" | "right"
 
 type CaretDirection = "up" | "down" | "left" | "right"
 
-type BorderTypes = 
-  "none"
-| "dotted"
-| "dashed"
-| "solid"
-| "double"
-| "groove"
-| "ridge"
-| "inset"
-| "outset"
-
 export interface ButtonProps {
     type?: ButtonType;
     iconposition?: IconPosition;
     icon?: IconDefinition;
     iconsize?: SizeProp;
     border?: BorderTypes;
+    caret?: CaretDirection;
     onClick?: () => void;
     label?: string;
     color?: string;
@@ -39,9 +30,11 @@ export interface ButtonProps {
     hovercolor?: string;
     height?: number;
     width?: number;
-    padding?: number;
+    padding?: number | number[];
     gap?: number;
     radius?: number | number[];
+    borderwidth?: number | number[];
     disabled?: boolean;
     loading?: boolean;
+    caretinvert?: boolean;
 }
