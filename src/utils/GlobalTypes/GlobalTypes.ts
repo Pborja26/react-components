@@ -31,3 +31,11 @@ export type Display =
 | "grid"
 | "block"
 | "none"
+
+export type Measurement = 
+  `${number}px`
+| `${number}rem`
+| `${number}%`
+| `${number}vw`
+| `${number}vh`
+| Array< `${number}px` | `${number}rem` | `${number}%` | `${number}vw` | `${number}vh` >;

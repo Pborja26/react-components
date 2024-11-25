@@ -34,9 +34,12 @@ const Button = ({
     loading,
     iconsize,
     hovercolor,
-    caret = "down",
     caretinvert,
-    borderwidth
+    borderwidth,
+    caret = "down",
+    flexdirection = "row",
+    justifycontent = "center",
+    alignitems = "center"
 }: ButtonProps) => {
     const handdleCaret = (caret: string) => {
         switch(caret) {
@@ -83,17 +86,20 @@ const Button = ({
             return (
                 <ButtonComponent
                     disabled={disabled}
-                    radius={radius || 8}
-                    gap={gap || 10}
-                    padding={padding || 10}
-                    width={width || 100}
-                    height={height}
-                    border={border || "none"}
-                    bordercolor={bordercolor}
+                    radius={radius || "8px"}
+                    gap={gap || "10px"}
+                    padding={padding || "10px"}
+                    width={width || "100%"}
+                    height={height || "45px"}
+                    border={border || "solid"}
+                    bordercolor={bordercolor || Themes.primary.main}
                     color={color || Themes.primary.main}
                     textcolor={textcolor || "#fff"}
                     onClick={onClick}
-                    borderwidth={borderwidth}
+                    borderwidth={borderwidth || "2px"}
+                    flexdirection={flexdirection}
+                    justifycontent={justifycontent}
+                    alignitems={alignitems}
                 >
                     {loading ? (
                         <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />
@@ -112,7 +118,23 @@ const Button = ({
             )
         case "secondary":
             return (
-                <ButtonComponent>
+                <ButtonComponent
+                    border={border}
+                    bordercolor={bordercolor}
+                    textcolor={textcolor}
+                    onClick={onClick}
+                    gap={gap}
+                    radius={radius}
+                    padding={padding}
+                    disabled={disabled}
+                    width={width}
+                    height={height}
+                    hovercolor={hovercolor}
+                    color={color}
+                    flexdirection={flexdirection}
+                    justifycontent={justifycontent}
+                    alignitems={alignitems}
+                >
 
                 </ButtonComponent>
             )
@@ -120,40 +142,137 @@ const Button = ({
             return (
                 <ButtonComponent
                     onClick={onClick}
-                    radius={radius || 20}
-                    
+                    radius={radius || "20px"}
+                    border="none"
+                    width={width || "20px"}
+                    height={height || "20px"}
+                    padding={padding || "5px"}
+                    flexdirection={flexdirection || "row"}
+                    justifycontent={justifycontent || "center"}
+                    alignitems={alignitems || "center"}
                 >
-
+                    {loading ? (
+                        <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />
+                    ) : (
+                        <FontAwesomeIcon icon={faXmark} size={iconsize} />
+                    )}
                 </ButtonComponent>
             )
         case "delete":
             return (
-                <ButtonComponent>
-
+                <ButtonComponent
+                    border={border || "none"}
+                    bordercolor={bordercolor || "none"}
+                    textcolor={textcolor || "#fff"}
+                    onClick={onClick}
+                    gap={gap || "10px"}
+                    radius={radius || "20px"}
+                    padding={padding || "10px"}
+                    disabled={disabled}
+                    width={width || "25px"}
+                    height={height || "25px"}
+                    hovercolor={hovercolor}
+                    color={color || "red"}
+                    flexdirection={flexdirection || "row"}
+                    justifycontent={justifycontent || "center"}
+                    alignitems={alignitems || "center"}
+                >
+                    {loading ? (
+                        <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />
+                    ) : (
+                        <FontAwesomeIcon icon={faTrash} size={iconsize} />
+                    )}
                 </ButtonComponent>
             )
         case "search":
             return (
-                <ButtonComponent>
+                <ButtonComponent
+                    border={border}
+                    bordercolor={bordercolor}
+                    textcolor={textcolor}
+                    onClick={onClick}
+                    gap={gap}
+                    radius={radius}
+                    padding={padding}
+                    disabled={disabled}
+                    width={width}
+                    height={height}
+                    hovercolor={hovercolor}
+                    color={color}
+                    flexdirection={flexdirection}
+                    justifycontent={justifycontent}
+                    alignitems={alignitems}
+                >
+                    {loading ? (
+                        <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />
+                    ) : (
+                        iconposition === "left" && label
 
+                    )}
                 </ButtonComponent>
             )
         case "filter":
             return (
-                <ButtonComponent>
+                <ButtonComponent
+                    border={border}
+                    bordercolor={bordercolor}
+                    textcolor={textcolor}
+                    onClick={onClick}
+                    gap={gap}
+                    radius={radius}
+                    padding={padding}
+                    disabled={disabled}
+                    width={width}
+                    height={height}
+                    hovercolor={hovercolor}
+                    color={color}
+                    flexdirection={flexdirection}
+                    justifycontent={justifycontent}
+                    alignitems={alignitems}
+                >
 
                 </ButtonComponent>
             )
         case "calendar":
             return (
-                <ButtonComponent>
+                <ButtonComponent
+                    border={border}
+                    bordercolor={bordercolor}
+                    textcolor={textcolor}
+                    onClick={onClick}
+                    gap={gap}
+                    radius={radius}
+                    padding={padding}
+                    disabled={disabled}
+                    width={width}
+                    height={height}
+                    hovercolor={hovercolor}
+                    color={color}
+                    flexdirection={flexdirection}
+                    justifycontent={justifycontent}
+                    alignitems={alignitems}
+                >
 
                 </ButtonComponent>
             )
         case "caret":
             return (
                 <ButtonComponent
-                
+                    border={border}
+                    bordercolor={bordercolor}
+                    textcolor={textcolor}
+                    onClick={onClick}
+                    gap={gap}
+                    radius={radius}
+                    padding={padding}
+                    disabled={disabled}
+                    width={width}
+                    height={height}
+                    hovercolor={hovercolor}
+                    color={color}
+                    flexdirection={flexdirection}
+                    justifycontent={justifycontent}
+                    alignitems={alignitems}
                 >
                     {handdleCaret(caret)}
                 </ButtonComponent>
@@ -173,6 +292,9 @@ const Button = ({
                     height={height}
                     hovercolor={hovercolor}
                     color={color}
+                    flexdirection={flexdirection}
+                    justifycontent={justifycontent}
+                    alignitems={alignitems}
                 >
                     {loading ? (
                         <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />

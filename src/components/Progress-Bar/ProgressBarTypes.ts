@@ -1,4 +1,8 @@
 export interface ProgressBarProps {
-  values?: number | number[];
+  direction?: "vertical" | "horizontal";
   showvalues?: boolean;
+  customcolors?: string | string[];
+  values: number | number[];
+  total: number;
+  size?: number;
 }

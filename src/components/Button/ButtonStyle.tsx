@@ -1,18 +1,23 @@
 import styled from "styled-components";
 import { ButtonProps } from "./ButtonTypes";
 import { Themes } from "../../utils/themes/Themes";
+import { Measurement } from "../../utils/GlobalTypes/GlobalTypes";
 
 export const ButtonComponent = styled.button<ButtonProps>`
+    display: flex;
+    flex-direction: ${props => props.flexdirection};
     width: 100%;
-    max-width: ${props => props.width}px;
-    height: ${props => props.height}px;
-    padding: ${props => props.padding}px;
-    gap: ${props => props.gap}px;
+    align-items: ${props => props.alignitems};
+    justify-content: ${props => props.justifycontent};
+    max-width: ${props => props.width};
+    height: ${props => props.height};
+    padding: ${props => props.padding};
+    gap: ${props => props.gap};
     border-radius: ${(props) => {
         if (Array.isArray(props.radius)) {
-            return props.radius.map((value: number) => `${value}px`).join(" ");
+            return props.radius.map((value: Measurement) => `${value}`).join(" ");
         } else {
-            return `${props.radius}px`;
+            return `${props.radius}`;
         }
     }};
     color: ${props => props.disabled ? Themes.text.black : props.textcolor};
