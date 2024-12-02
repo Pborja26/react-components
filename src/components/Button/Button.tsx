@@ -12,8 +12,10 @@ import {
     faCaretUp,
     faCaretLeft,
     faCaretRight,
-    faSpinner
+    faSpinner,
+    IconDefinition
 } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 const Button = ({
     type,
@@ -34,19 +36,38 @@ const Button = ({
     loading,
     iconsize,
     hovercolor,
-    caretinvert,
     borderwidth,
+    dinamiccaret = false,
     caret = "down",
     flexdirection = "row",
     justifycontent = "center",
     alignitems = "center"
 }: ButtonProps) => {
+    const [caretInvert, setCaretInvert] = useState<boolean>(false);
+
+    const handleIcon = (icon: IconDefinition) => {
+        if (loading) {
+            return <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />; 
+        }
+        if (iconposition === "left" && icon) {
+            return <FontAwesomeIcon icon={icon} size={iconsize} />;
+        }
+        if (iconposition === "right" && icon) {
+            return <FontAwesomeIcon icon={icon} size={iconsize} />;
+        }
+        return null;
+    };
+
     const handdleCaret = (caret: string) => {
         switch(caret) {
             case "up":
                 return (
-                    caretinvert ? (
-                        <FontAwesomeIcon icon={faCaretDown} size={iconsize} />
+                    dinamiccaret ? (
+                        caretInvert ? (
+                            <FontAwesomeIcon icon={faCaretDown} size={iconsize} />
+                        ) : (
+                            <FontAwesomeIcon icon={faCaretUp} size={iconsize} />
+                        )
                     ) : (
                         <FontAwesomeIcon icon={faCaretUp} size={iconsize} />
                     )
@@ -54,8 +75,12 @@ const Button = ({
             
             case "down":
                 return (
-                    caretinvert ? (
-                        <FontAwesomeIcon icon={faCaretUp} size={iconsize} />
+                    dinamiccaret ? (
+                        caretInvert ? (
+                            <FontAwesomeIcon icon={faCaretUp} size={iconsize} />
+                        ) : (
+                            <FontAwesomeIcon icon={faCaretDown} size={iconsize} />
+                        )
                     ) : (
                         <FontAwesomeIcon icon={faCaretDown} size={iconsize} />
                     )
@@ -63,8 +88,12 @@ const Button = ({
 
             case "right":
                 return (
-                    caretinvert ? (
-                        <FontAwesomeIcon icon={faCaretLeft} size={iconsize} />
+                    dinamiccaret ? (
+                        caretInvert ? (
+                            <FontAwesomeIcon icon={faCaretLeft} size={iconsize} />
+                        ) : (
+                            <FontAwesomeIcon icon={faCaretRight} size={iconsize} />
+                        )
                     ) : (
                         <FontAwesomeIcon icon={faCaretRight} size={iconsize} />
                     )
@@ -72,8 +101,12 @@ const Button = ({
 
             case "left":
                 return (
-                    caretinvert ? (
-                        <FontAwesomeIcon icon={faCaretRight} size={iconsize} />
+                    dinamiccaret ? (
+                        caretInvert ? (
+                            <FontAwesomeIcon icon={faCaretRight} size={iconsize} />
+                        ) : (
+                            <FontAwesomeIcon icon={faCaretLeft} size={iconsize} />
+                        )
                     ) : (
                         <FontAwesomeIcon icon={faCaretLeft} size={iconsize} />
                     )
@@ -101,19 +134,9 @@ const Button = ({
                     justifycontent={justifycontent}
                     alignitems={alignitems}
                 >
-                    {loading ? (
-                        <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />
-                    ) : (
-                        icon && iconposition === "left" && 
-                            <FontAwesomeIcon icon={icon} size={iconsize} />
-                    )}
+                    {iconposition === "left" && icon && handleIcon(icon)}
                     {label}
-                    {loading ? (
-                        <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />
-                    ) : (
-                        icon && iconposition === "right" &&
-                            <FontAwesomeIcon icon={icon} size={iconsize} />  
-                    )} 
+                    {iconposition === "right" && icon && handleIcon(icon)}
                 </ButtonComponent>
             )
         case "secondary":
@@ -135,7 +158,9 @@ const Button = ({
                     justifycontent={justifycontent}
                     alignitems={alignitems}
                 >
-
+                    {iconposition === "left" && icon && handleIcon(icon)}
+                    {label}
+                    {iconposition === "right" && icon && handleIcon(icon)}
                 </ButtonComponent>
             )
         case "close":
@@ -151,11 +176,9 @@ const Button = ({
                     justifycontent={justifycontent || "center"}
                     alignitems={alignitems || "center"}
                 >
-                    {loading ? (
-                        <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />
-                    ) : (
-                        <FontAwesomeIcon icon={faXmark} size={iconsize} />
-                    )}
+                    {iconposition === "left" && icon && handleIcon(faXmark)}
+                    {label}
+                    {iconposition === "right" && icon && handleIcon(faXmark)}
                 </ButtonComponent>
             )
         case "delete":
@@ -177,11 +200,9 @@ const Button = ({
                     justifycontent={justifycontent || "center"}
                     alignitems={alignitems || "center"}
                 >
-                    {loading ? (
-                        <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />
-                    ) : (
-                        <FontAwesomeIcon icon={faTrash} size={iconsize} />
-                    )}
+                    {iconposition === "left" && icon && handleIcon(faTrash)}
+                    {label}
+                    {iconposition === "right" && icon && handleIcon(faTrash)}
                 </ButtonComponent>
             )
         case "search":
@@ -203,12 +224,9 @@ const Button = ({
                     justifycontent={justifycontent}
                     alignitems={alignitems}
                 >
-                    {loading ? (
-                        <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />
-                    ) : (
-                        iconposition === "left" && label
-
-                    )}
+                    {iconposition === "left" && icon && handleIcon(faMagnifyingGlass)}
+                    {label}
+                    {iconposition === "right" && icon && handleIcon(faMagnifyingGlass)}
                 </ButtonComponent>
             )
         case "filter":
@@ -230,7 +248,9 @@ const Button = ({
                     justifycontent={justifycontent}
                     alignitems={alignitems}
                 >
-
+                    {iconposition === "left" && icon && handleIcon(faFilter)}
+                    {label}
+                    {iconposition === "right" && icon && handleIcon(faFilter)}
                 </ButtonComponent>
             )
         case "calendar":
@@ -252,7 +272,9 @@ const Button = ({
                     justifycontent={justifycontent}
                     alignitems={alignitems}
                 >
-
+                    {iconposition === "left" && icon && handleIcon(faCalendar)}
+                    {label}
+                    {iconposition === "right" && icon && handleIcon(faCalendar)}
                 </ButtonComponent>
             )
         case "caret":
@@ -261,7 +283,10 @@ const Button = ({
                     border={border}
                     bordercolor={bordercolor}
                     textcolor={textcolor}
-                    onClick={onClick}
+                    onClick={() => {
+                        onClick && onClick();
+                        setCaretInvert(!caretInvert);
+                    }}
                     gap={gap}
                     radius={radius}
                     padding={padding}
@@ -296,19 +321,9 @@ const Button = ({
                     justifycontent={justifycontent}
                     alignitems={alignitems}
                 >
-                    {loading ? (
-                        <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />
-                    ) : (
-                        icon && iconposition === "left" && 
-                            <FontAwesomeIcon icon={icon} size={iconsize} />
-                    )}
+                    {iconposition === "left" && icon && handleIcon(icon)}
                     {label}
-                    {loading ? (
-                        <FontAwesomeIcon icon={faSpinner} size={iconsize} spin />
-                    ) : (
-                        icon && iconposition === "right" &&
-                            <FontAwesomeIcon icon={icon} size={iconsize} />  
-                    )} 
+                    {iconposition === "right" && icon && handleIcon(icon)}
                 </ButtonComponent>
             )
 

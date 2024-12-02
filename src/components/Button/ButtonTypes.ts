@@ -39,5 +39,5 @@ export interface ButtonProps {
     hovercolor?: string;
     disabled?: boolean;
     loading?: boolean;
-    caretinvert?: boolean;
+    dinamiccaret?: boolean;
 }
